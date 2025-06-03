@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Context Menu Tree - Options</title>
+  <style>
+    body { font-family: sans-serif; padding: 1em; max-width: 800px; }
+    textarea { width: 100%; height: 300px; font-family: monospace; }
+    #status { margin-left: 10px; }
+  </style>
+</head>
+<body>
+  <h2>Edit Menu Configuration</h2>
+  <p>
+    Format: <code>["parentLabel", "Label", "URL_WITH_TESTSEARCH", true]</code>
+  </p>
+  <textarea id="settingsArea"></textarea><br><br>
+  <button id="saveBtn">Save</button>
+  <span id="status"></span>
+
+  <script src="options.js"></script>
+</body>
+</html>
