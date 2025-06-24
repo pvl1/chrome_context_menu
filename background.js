@@ -48,21 +48,70 @@ chrome.storage.onChanged.addListener((changes, area) => {
   }
 });
 
+
+function cleanText(text) {
+  return text
+  // Replace non-breaking spaces and other Unicode spaces with regular space
+  .replace(/[\u00A0\u2000-\u200B\u202F\u205F\u3000]/g, ' ')
+  // Replace multiple spaces or tabs with a single space
+  .replace(/\s+/g, ' ')
+  // Trim leading and trailing whitespace
+  .trim();
+}
+
 chrome.contextMenus.onClicked.addListener((info, tab) => {
+ chrome.scripting.executeScript({
+ target: { tabId: tab.id },
+ func: () => {
+ const selected = document.getSelection().toString()
+ .replace(/[\u00A0\u2000-\u200B\u202F\u205F\u3000]/g, ' ')
+ // Replace multiple spaces or tabs (but not newlines) with a single space
+ .replace(/[ \t]+/g, ' ')
+ // Trim spaces at the start/end of each line
+ .replace(/^[ \t]+|[ \t]+$/gm, '')
+ // Trim the entire string
+ .trim();
+
+ chrome.runtime.sendMessage({ selected });
+ }
+ });
+
+ chrome.runtime.onMessage.addListener(function handleSelection(message) {
+  chrome.runtime.onMessage.removeListener(handleSelection); // prevent multiple triggers
+
   chrome.storage.local.get("settings", (data) => {
-    const settings = data.settings || [];
-    const match = settings.find((_, i) => `item-${i}` === info.menuItemId);
-    if (!match) return;
+  const settings = data.settings || [];
+  const match = settings.find((_, i) => `item-${i}` === info.menuItemId);
+  if (!match) return;
 
-    const [, label, url, openInNewTab] = match;
-    const selected = encodeURIComponent(info.selectionText || "");
-    const finalURL = url.replace("TESTSEARCH", selected);
+  const [, label, url, openInNewTab] = match;
+  const selected = encodeURIComponent(message.selected || "");
+  const finalURL = url.replace("TESTSEARCH", selected);
 
-    if (!url) return;
+  if (!url) return;
 
-    chrome.tabs.create({ url: finalURL });
+  chrome.tabs.create({ url: finalURL });
   });
+ });
 });
+
+
+//chrome.contextMenus.onClicked.addListener((info, tab) => {
+  //chrome.storage.local.get("settings", (data) => {
+    //const settings = data.settings || [];
+    //const match = settings.find((_, i) => `item-${i}` === info.menuItemId);
+    //if (!match) return;
+
+    //const [, label, url, openInNewTab] = match;
+    ////const selected = encodeURIComponent( document.getSelection().toString() || "");
+    //const selected = encodeURIComponent(info.selectionText || "");
+    //const finalURL = url.replace("TESTSEARCH", selected);
+
+    //if (!url) return;
+
+    //chrome.tabs.create({ url: finalURL });
+  //});
+//});
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "rebuild_menus") {
     chrome.storage.local.get("settings", (data) => {
