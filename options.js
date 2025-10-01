@@ -2,10 +2,12 @@ const textarea = document.getElementById("settingsArea");
 const saveBtn = document.getElementById("saveBtn");
 const status = document.getElementById("status");
 
-// Load current settings
-chrome.storage.sync.get("settings", (data) => {
-  const settings = data.settings || [];
-  textarea.value = JSON.stringify(settings, null, 2);
+chrome.storage.local.get("settings", function(result) {
+  if (chrome.runtime.lastError) {
+    console.error(chrome.runtime.lastError.message);
+  } else {
+    textarea.value = JSON.stringify(result.settings|| [], null, 2);
+  }
 });
 
 saveBtn.addEventListener("click", () => {
@@ -24,3 +26,4 @@ saveBtn.addEventListener("click", () => {
     status.textContent = "❌ Invalid JSON!";
   }
 });
+

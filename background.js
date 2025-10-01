@@ -95,23 +95,6 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
  });
 });
 
-
-//chrome.contextMenus.onClicked.addListener((info, tab) => {
-  //chrome.storage.local.get("settings", (data) => {
-    //const settings = data.settings || [];
-    //const match = settings.find((_, i) => `item-${i}` === info.menuItemId);
-    //if (!match) return;
-
-    //const [, label, url, openInNewTab] = match;
-    ////const selected = encodeURIComponent( document.getSelection().toString() || "");
-    //const selected = encodeURIComponent(info.selectionText || "");
-    //const finalURL = url.replace("TESTSEARCH", selected);
-
-    //if (!url) return;
-
-    //chrome.tabs.create({ url: finalURL });
-  //});
-//});
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "rebuild_menus") {
     chrome.storage.local.get("settings", (data) => {

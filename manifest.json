@@ -1,20 +1,21 @@
 {
   "manifest_version": 3,
-  "name": "Text Analyzer",
+  "name": "NestedMenu",
   "version": "1.0",
-  "description": "Analyzes text on webpages and emails.",
+  "description": "Nested context menues for opening (search) urls that include user's highlighted text.",
   "permissions": ["contextMenus", "activeTab", "scripting", "storage"],
   "host_permissions": ["<all_urls>"],
   "action": {
     "default_popup": "popup.html",
-    "default_icon": "icon.png",
-    "default_title": "Send to Flask"
+    "default_icon": "icon128.png",
+    "default_title": "Right click and select options"
   },
   "options_page": "options.html",
   "background": {
     "service_worker": "background.js"
   },
   "icons": {
-    "16": "icon.png"
+    "16": "icon16.ico",
+    "128": "icon128.png"
   }
 }
