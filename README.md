@@ -6,7 +6,7 @@ multi-level (aka nested) right click context menus for chrome
 1. developer mode for extensions needs enabled
 1. load unpacked extension (after adding some icon.png)
 1. right click extension, select options, adapt/paste below
-
+## Example Config
 ```
 [
     ["-1","Google Maps","http://www.google.com/maps/search/TESTSEARCH",true],

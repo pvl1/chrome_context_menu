@@ -35,11 +35,24 @@ function createContextMenus(settings) {
   });
 }
 
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.storage.local.get("settings", (data) => {
-    const settings = data.settings || [];
-    createContextMenus(settings);
-  });
+chrome.runtime.onInstalled.addListener((details) => {
+  if (details.reason === "install") {
+    const defaultSettings = [
+    ["-1","Google Maps","http://www.google.com/maps/search/TESTSEARCH",true],
+    ["root","[FLASK]","",true],
+    ["[FLASK]","ABC","http://127.0.0.1:5000/abc?value=TESTSEARCH",true],
+    ["[FLASK]","DEF","http://127.0.0.1:5000/def?why=bc&value=TESTSEARCH",true],
+    ["-1","","",true],
+    ["root","other google","",true],
+    ["other google","drive","https://drive.google.com/drive/search?q=TESTSEARCH",true],
+    ["other google","","",true],
+    ["other google","chat|hangouts","https://mail.google.com/mail/u/0/#search/chat/TESTSEARCH/cmembership=1",true],
+    ["-1","","",true],
+    ["-1","wiki a","urla&search=TESTSEARCH",true]
+  ];
+  chrome.storage.local.set({ settings: defaultSettings });
+  }
+  createContextMenus(settings);
 });
 
 chrome.storage.onChanged.addListener((changes, area) => {
