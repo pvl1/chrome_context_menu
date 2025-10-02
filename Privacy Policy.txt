@@ -1,0 +1,4 @@
+Privacy Policy
+This extension does not collect, store, or share any personal information.
+All processing (such as handling highlighted text and constructing URLs) happens locally in your browser.
+No data is transmitted to the developer or any third parties.
