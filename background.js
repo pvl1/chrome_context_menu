@@ -37,7 +37,7 @@ function createContextMenus(settings) {
 
 chrome.runtime.onInstalled.addListener((details) => {
   if (details.reason === "install") {
-    const defaultSettings = [
+  const defaultSettings = [
     ["-1","Google Maps","http://www.google.com/maps/search/TESTSEARCH",true],
     ["root","[FLASK]","",true],
     ["[FLASK]","ABC","http://127.0.0.1:5000/abc?value=TESTSEARCH",true],
@@ -50,9 +50,10 @@ chrome.runtime.onInstalled.addListener((details) => {
     ["-1","","",true],
     ["-1","wiki a","urla&search=TESTSEARCH",true]
   ];
-  chrome.storage.local.set({ settings: defaultSettings });
+    chrome.storage.local.set({ settings: defaultSettings });
+    createContextMenus(defaultSettings);
+  //chrome.runtime.sendMessage({ action: "rebuild_menus" });
   }
-  createContextMenus(settings);
 });
 
 chrome.storage.onChanged.addListener((changes, area) => {
