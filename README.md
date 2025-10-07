@@ -1,12 +1,18 @@
-# chrome_context_menu
+# NestedMenu
 multi-level (aka nested) right click context menus for chrome 
 ![image info](screenshots/menu_example.png)
+## Install
+### Chrome
+https://chromewebstore.google.com/detail/nestedmenu/piokmhbekgbkkfknnecapgmiaeaokbmn?authuser=0&hl=en&pli=1
+### Edge
+https://microsoftedge.microsoft.com/addons/detail/nestedmenu/ldomfjebdllhfdgmkekgpojckcpmjnhp
 
-1. manifest calls for some icon.png
+## Dev Install
 1. developer mode for extensions needs enabled
 1. load unpacked extension (after adding some icon.png)
 1. right click extension, select options, adapt/paste below
-## Example Config
+# Example Configs
+## Default
 ```
 [
     ["-1","Google Maps","http://www.google.com/maps/search/TESTSEARCH",true],
